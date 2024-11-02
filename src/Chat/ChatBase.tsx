@@ -279,11 +279,19 @@ function ChatBase({ chat }: ChatBaseProps) {
         // If the prompt text exist, package it up as a human message and add to the chat
         if (prompt) {
           // Add this prompt message to the chat
-          promptMessage = new ChatCraftHumanMessage({ text: prompt, imageUrls, user });
+          promptMessage = new ChatCraftHumanMessage({
+            text: prompt,
+            imageUrls,
+            user,
+          });
           await chat.addMessage(promptMessage);
         } else if (imageUrls?.length) {
           // Add only image to the chat
-          promptMessage = new ChatCraftHumanMessage({ text: "", imageUrls, user });
+          promptMessage = new ChatCraftHumanMessage({
+            text: "",
+            imageUrls,
+            user,
+          });
           await chat.addMessage(promptMessage);
         } else {
           // If there isn't any prompt text, see if the final message in the chat was a human
@@ -373,7 +381,7 @@ function ChatBase({ chat }: ChatBaseProps) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, chat, streamingMessage, setLoading, setShouldAutoScroll, callChatApi, error]
+    [user, chat, setLoading, setShouldAutoScroll, callChatApi, error]
   );
 
   // Restart auto-scrolling and resume a paused response when Follow Chat is clicked
